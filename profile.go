@@ -21,7 +21,8 @@ type Profile struct {
 // GetProfile fetches the recipient's profile from facebook platform
 // Non empty UserID has to be specified in order to receive the information
 func (m *Messenger) GetProfile(userID string) (*Profile, error) {
-	resp, err := m.doRequest("GET", fmt.Sprintf(GraphAPI+"/v2.6/%s?fields=first_name,last_name,profile_pic,locale,timezone,gender", userID), nil)
+	// resp, err := m.doRequest("GET", fmt.Sprintf(GraphAPI+"/v2.6/%s?fields=first_name,last_name,profile_pic,locale,timezone,gender", userID), nil)
+	resp, err := m.doRequest("GET", fmt.Sprintf(GraphAPI+"/v2.9/%s?fields=first_name,last_name,profile_pic,locale,timezone,gender", userID), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +46,8 @@ type accountLinking struct {
 // one must supply a valid and not expired authentication token provided by facebook
 // https://developers.facebook.com/docs/messenger-platform/account-linking/authentication
 func (m *Messenger) GetPSID(token string) (*string, error) {
-	resp, err := m.doRequest("GET", fmt.Sprintf(GraphAPI+"/v2.6/me?fields=recipient&account_linking_token=%s", token), nil)
+	// resp, err := m.doRequest("GET", fmt.Sprintf(GraphAPI+"/v2.6/me?fields=recipient&account_linking_token=%s", token), nil)
+	resp, err := m.doRequest("GET", fmt.Sprintf(GraphAPI+"/v2.9/me?fields=recipient&account_linking_token=%s", token), nil)
 	if err != nil {
 		return nil, err
 	}

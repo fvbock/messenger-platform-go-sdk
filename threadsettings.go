@@ -44,7 +44,8 @@ func (m *Messenger) changeThreadSettings(httpMethod string, set *threadSettings)
 		return nil, err
 	}
 
-	resp, err := m.doRequest(httpMethod, GraphAPI+"/v2.6/me/thread_settings", bytes.NewReader(body))
+	// resp, err := m.doRequest(httpMethod, GraphAPI+"/v2.6/me/thread_settings", bytes.NewReader(body))
+	resp, err := m.doRequest(httpMethod, GraphAPI+"/v2.9/me/thread_settings", bytes.NewReader(body))
 	if err != nil {
 		return nil, err
 	}
