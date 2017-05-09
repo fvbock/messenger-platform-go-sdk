@@ -59,19 +59,17 @@ type Messenger struct {
 // Handler is the main HTTP handler for the Messenger service.
 // It MUST be attached to some web server in order to receive messages
 func (m *Messenger) Handler(rw http.ResponseWriter, req *http.Request) {
-	if req.Method == "GET" {
-		query := req.URL.Query()
-		if query.Get("hub.verify_token") != m.VerifyToken {
-			rw.WriteHeader(http.StatusUnauthorized)
-			return
-		}
-		rw.WriteHeader(http.StatusOK)
-		rw.Write([]byte(query.Get("hub.challenge")))
-	} else if req.Method == "POST" {
-		m.handlePOST(rw, req)
-	} else {
-		rw.WriteHeader(http.StatusMethodNotAllowed)
+	m.handlePOST(rw, req)
+}
+
+func (m *Messenger) VerifyHandler(rw http.ResponseWriter, req *http.Request) {
+	query := req.URL.Query()
+	if query.Get("hub.verify_token") != m.VerifyToken {
+		rw.WriteHeader(http.StatusUnauthorized)
+		return
 	}
+	rw.WriteHeader(http.StatusOK)
+	rw.Write([]byte(query.Get("hub.challenge")))
 }
 
 func (m *Messenger) handlePOST(rw http.ResponseWriter, req *http.Request) {
