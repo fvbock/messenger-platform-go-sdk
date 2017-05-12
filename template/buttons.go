@@ -12,9 +12,9 @@ const (
 )
 
 type Button struct {
-	Type    ButtonType `json:"type"`
-	Title   string     `json:"title,omitempty"`
-	URL     string     `json:"url,omitempty"`
+	Type    ButtonType `json:"type" yaml:"type,omitempty"`
+	Title   string     `json:"title,omitempty" yaml:"text,omitempty"`
+	URL     string     `json:"url,omitempty" yaml:"url,omitempty"`
 	Payload string     `json:"payload,omitempty"`
 }
 
